@@ -12,7 +12,7 @@ class ButtonSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Theme.of(context).primaryColor;
+    final Color color = Color(0xFF498467);
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,7 +98,7 @@ class FafsaOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('FAFSA Overview')),
+      //appBar: AppBar(title: const Text('FAFSA Overview')),
       body: const SingleChildScrollView(child: Column(
           children: [
               ImageSection(
