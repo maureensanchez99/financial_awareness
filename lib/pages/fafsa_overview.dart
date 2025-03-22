@@ -102,7 +102,7 @@ class FafsaOverview extends StatelessWidget {
       body: const SingleChildScrollView(child: Column(
           children: [
               ImageSection(
-                image: '',
+                image: 'assets/images/FAFSA_ss.png',
               ),
              TitleSection(
               pageTitle: 'FAFSA Overview',
