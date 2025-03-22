@@ -1,13 +1,128 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserProfile extends StatelessWidget {
+
+class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
+
+  @override
+  State<UserProfile> createState() => ProfilePage();
+}
+class ProfilePage extends State<UserProfile> {
+
+  String userName = "";
+  String userID = "";
+  String bio = "";
+  String imgLink = "";
+
+  @override
+  void initState() {
+    super.initState();
+    loadProfile();
+  }
+
+  Future<void> loadProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('userName') ?? "Mike Tiger";
+      userID = prefs.getString('userID') ?? "magnolia1860";
+      bio = prefs.getString('bio') ?? "My name is mike hear me roar\n\n\n\n\n\nroar";
+      imgLink = prefs.getString('imgLink') ?? "https://images.squarespace-cdn.com/content/v1/59c0463990baded1a5b678d7/1513220484531-V44GLX52ZRGAIZ75I9Q3/LSU9205-Mike-VII-First-Day.jpg";
+    });
+  }
+
+  Future<void> updateProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString('userName', "Test");
+      prefs.setString('userID', "Test");
+      prefs.setString('bio', "Test");
+
+      userName = prefs.getString('userName') ?? "Mike Tiger";
+      userID = prefs.getString('userID') ?? "magnolia1860";
+      bio = prefs.getString('bio') ?? "My name is mike hear me roar\n\n\n\n\n\nroar";
+    });
+  }
+
+    Future<void> reset() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString('userName',"Mike Tiger");
+      prefs.setString('userID', "magnolia1860");
+      prefs.setString('bio', "My name is mike hear me roar\n\n\n\n\n\nroar");
+      prefs.setString('imgLink', 'https://images.squarespace-cdn.com/content/v1/59c0463990baded1a5b678d7/1513220484531-V44GLX52ZRGAIZ75I9Q3/LSU9205-Mike-VII-First-Day.jpg');
+
+      userName = prefs.getString('userName') ?? "Mike Tiger";
+      userID = prefs.getString('userID') ?? "magnolia1860";
+      bio = prefs.getString('bio') ?? "My name is mike hear me roar\n\n\n\n\n\nroar";
+      imgLink = prefs.getString('imgLink') ?? "https://images.squarespace-cdn.com/content/v1/59c0463990baded1a5b678d7/1513220484531-V44GLX52ZRGAIZ75I9Q3/LSU9205-Mike-VII-First-Day.jpg";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Profile')),
-      body: const Center(child: Text('User Profile Content')),
+      body: Container(
+        decoration: BoxDecoration(color: Color.fromRGBO(163, 154, 172, 1)),
+        child: Padding(
+          padding: const EdgeInsets.only(top:10, left: 10),
+          child: Column(
+              children: <Widget> [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        child:CircleAvatar(
+                        radius: 75,
+                        backgroundImage: NetworkImage(imgLink),
+                        )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 30),
+                      child: Column(
+                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget> [
+                          Text(userName, style: TextStyle( fontSize: 25.0,
+                                                           color: Colors.black
+                                                         ),
+                          ),
+                          Text(userID, style: TextStyle( fontSize: 18.0,
+                                                           color: const Color.fromARGB(255, 216, 216, 216)
+                                                         ),
+                          )
+                        ]
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                padding: const EdgeInsets.only(top: 20, left: 5, right: 15.0),
+                child: Container(
+                  height: 275,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0), // Uniform radius
+                  ),
+          
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(bio),
+                  )
+                ),
+              )
+              
+              ],
+            )
+          ),
+      ),
     );
   }
 }
