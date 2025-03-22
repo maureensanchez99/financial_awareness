@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Geaux Breauk',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF461D7C)),
-        useMaterial3: truel
+        useMaterial3: true
       ),
       home: const HomePage(),
     );
