@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+
+/* NOTE - FAFSA Page 
+  - Criteria: 
+
+*/
+
 class FafsaOverview extends StatelessWidget {
   const FafsaOverview({super.key});
 
