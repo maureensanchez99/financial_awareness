@@ -82,7 +82,7 @@ class ProfilePage extends State<UserProfile> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 30),
+                      padding: const EdgeInsets.only(top: 10, left: 50),
                       child: Column(
                         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget> [
@@ -105,6 +105,7 @@ class ProfilePage extends State<UserProfile> {
                   height: 275,
                   width: 400,
                   decoration: BoxDecoration(
+                    color: Color.fromRGBO(241, 238, 219,1),
                     border: Border.all(
                       color: Colors.black,
                       width: 2.0,
@@ -117,8 +118,138 @@ class ProfilePage extends State<UserProfile> {
                     child: Text(bio),
                   )
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                  Column(children:[
+                    ElevatedButton(
+                      onPressed: () {
+                        updateProfile();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Update Profile',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Update Username',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Update Password',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+                  ]),
+                  Column(children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Privacy Policy',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Terms & Conditions',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        reset();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 55,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+                  ])
+                ]),
               )
-              
               ],
             )
           ),
