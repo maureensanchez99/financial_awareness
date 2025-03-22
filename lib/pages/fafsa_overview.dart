@@ -12,7 +12,7 @@ class ButtonSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Theme.of(context).primaryColor;
+    final Color color = Color(0xFF498467);
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,11 +98,11 @@ class FafsaOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('FAFSA Overview')),
+      //appBar: AppBar(title: const Text('FAFSA Overview')),
       body: const SingleChildScrollView(child: Column(
           children: [
               ImageSection(
-                image: '',
+                image: 'assets/images/FAFSA_ss.png',
               ),
              TitleSection(
               pageTitle: 'FAFSA Overview',
@@ -115,7 +115,12 @@ class FafsaOverview extends StatelessWidget {
                   'FSA, an office of the U.S. Department of Education (ED), is '
                   'the largest provider of student financial aid in the nation. '
                   'At FSA, our more than 1,400 employees help make postsecondary education '
-                  'possible for more than 9.9 million students each year.'
+                  'possible for more than 9.9 million students each year. \n'
+                  'What We Do \n'
+                  'FSA is responsible for managing the student financial assistance '
+                  'programs authorized under Title IV of the Higher Education Act of '
+                  '1965. These programs provide grant, work-study, and loan funds to students '
+                  'attending college or career school.'
                   ,
             ),
           ],
