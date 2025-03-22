@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 
 */
 
+
+
 //SECTION - ButtonSection
 class ButtonSection extends StatelessWidget {
   const ButtonSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Color(0xFF498467);
+    final Color color = Color(0xFF3C1053);
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,7 +101,13 @@ class FafsaOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //appBar: AppBar(title: const Text('FAFSA Overview')),
-      body: const SingleChildScrollView(child: Column(
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFA39AAC),
+        ),
+
+      child: const SingleChildScrollView(
+        child: Column(
           children: [
               ImageSection(
                 image: 'assets/images/FAFSA_ss.png',
@@ -126,6 +134,7 @@ class FafsaOverview extends StatelessWidget {
           ],
         )
       ),
+    )
     );
   }
 }
@@ -156,12 +165,13 @@ class TitleSection extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text(desc, style: TextStyle(color: Colors.grey[500])),
+                //NOTE - Change color
+                Text(desc, style: TextStyle(color: Colors.blueGrey[500])),
               ],
             ),
           ),
           /*3*/
-          Icon(Icons.library_books, color: Color(0xFF498467)),
+          Icon(Icons.library_books, color: Color(0xFF3C1053)),
         ],
       ),
     );
