@@ -19,7 +19,7 @@ class Scholarships extends StatelessWidget {
                 "My Scholarships",
                 style: TextStyle(
                   fontFamily: 'ProximaNova',
-                  fontSize: 30,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -30,6 +30,16 @@ class Scholarships extends StatelessWidget {
                 key: _formKey,
                 child: Column(
                   children: [
+                    Text(
+                      'Enter new scholarship info:',
+                      style: TextStyle(
+                        fontFamily: 'ProximaNova',
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
                     TextFormField( // first text field
                       decoration: const InputDecoration(
                         hintText: 'Scholarship Name',
@@ -38,6 +48,19 @@ class Scholarships extends StatelessWidget {
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField( // first text field
+                      decoration: const InputDecoration(
+                        hintText: 'Scholarship Amount',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the scholarship value';
                         }
                         return null;
                       },
