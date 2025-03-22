@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     const HomePageContent(),
     const UserProfile(),
     const FafsaOverview(),
-    const Scholarships(),
+    Scholarships(),
     const Calendar(),
   ];
 
