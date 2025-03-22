@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 
 */
 
+
+
 //SECTION - ButtonSection
 class ButtonSection extends StatelessWidget {
   const ButtonSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Theme.of(context).primaryColor;
+    final Color color = Color(0xFF3C1053);
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,11 +100,17 @@ class FafsaOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('FAFSA Overview')),
-      body: const SingleChildScrollView(child: Column(
+      //appBar: AppBar(title: const Text('FAFSA Overview')),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFA39AAC),
+        ),
+
+      child: const SingleChildScrollView(
+        child: Column(
           children: [
               ImageSection(
-                image: '',
+                image: 'assets/images/FAFSA_ss.png',
               ),
              TitleSection(
               pageTitle: 'FAFSA Overview',
@@ -115,12 +123,18 @@ class FafsaOverview extends StatelessWidget {
                   'FSA, an office of the U.S. Department of Education (ED), is '
                   'the largest provider of student financial aid in the nation. '
                   'At FSA, our more than 1,400 employees help make postsecondary education '
-                  'possible for more than 9.9 million students each year.'
+                  'possible for more than 9.9 million students each year. \n'
+                  'What We Do \n'
+                  'FSA is responsible for managing the student financial assistance '
+                  'programs authorized under Title IV of the Higher Education Act of '
+                  '1965. These programs provide grant, work-study, and loan funds to students '
+                  'attending college or career school.'
                   ,
             ),
           ],
         )
       ),
+    )
     );
   }
 }
@@ -151,12 +165,13 @@ class TitleSection extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text(desc, style: TextStyle(color: Colors.grey[500])),
+                //NOTE - Change color
+                Text(desc, style: TextStyle(color: Colors.blueGrey[500])),
               ],
             ),
           ),
           /*3*/
-          Icon(Icons.library_books, color: Color(0xFF498467)),
+          Icon(Icons.library_books, color: Color(0xFF3C1053)),
         ],
       ),
     );
