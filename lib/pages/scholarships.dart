@@ -7,7 +7,23 @@ class Scholarships extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Scholarships')),
-      body: const Center(child: Text('Scholarships Content')),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 80,
+              alignment: Alignment.center,
+              child: const Text(
+                "My Scholarships:",
+                style: TextStyle(
+                  
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
