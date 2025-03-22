@@ -11,7 +11,7 @@ class Scholarships extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Container(
+            Container( //page title
               width: double.infinity,
               height: 80,
               alignment: Alignment.center,
@@ -30,7 +30,7 @@ class Scholarships extends StatelessWidget {
                 key: _formKey,
                 child: Column(
                   children: [
-                    TextFormField(
+                    TextFormField( // first text field
                       decoration: const InputDecoration(
                         hintText: 'Scholarship Name',
                         border: OutlineInputBorder(),
@@ -43,10 +43,10 @@ class Scholarships extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 16.0),
-                    ElevatedButton(
+                    ElevatedButton( // submit button
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          // Perform form submission logic
+                          // Process data
                         }
                       },
                       child: const Text('Submit'),
