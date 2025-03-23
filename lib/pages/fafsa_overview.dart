@@ -47,7 +47,21 @@ class ButtonSection extends StatelessWidget {
               showDialog(context: context, builder: (BuildContext context) {
               return AlertDialog(
                 title: Text("Share Page:"),
-                content: Text("Old Password Value does not match. Please try again"),
+                content: Center(
+                  child: Row(
+                    children: [
+                      IconButton(iconSize: 72, onPressed: () {
+                        _launchURLBrowser("https://www.instagram.com/");
+                      }, icon: Icon(Icons.camera_alt_outlined),),
+                      IconButton(iconSize: 72, onPressed: () {
+                        _launchURLBrowser("https://www.facebook.com/");
+                      }, icon: Icon(Icons.facebook),),
+                      IconButton(iconSize: 72, onPressed: () {
+                        _launchURLBrowser("https://www.tiktok.com/explore");
+                      }, icon: Icon(Icons.tiktok)),
+                      ],
+                  ),
+                ),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () {
