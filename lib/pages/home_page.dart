@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'scholarships.dart';
 import 'user_profile.dart';
 import 'fafsa_overview.dart';
 import 'calendar.dart';
+import 'package:financial_awareness/calendar_logs.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage({super.key});
@@ -68,6 +70,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomePageContent extends StatelessWidget {
+
   const HomePageContent({super.key});
 
   @override
@@ -77,6 +80,7 @@ class HomePageContent extends StatelessWidget {
         onPressed: () {}, 
         child: const Text('Home Page content'),
       ),
+
     );
   }
 }

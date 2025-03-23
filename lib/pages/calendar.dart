@@ -126,7 +126,7 @@ class _CalendarState extends State<Calendar> {
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text("$value"),
+                  child: Text(value),
                 );
         }).toList(),
         isExpanded: true, // Ensures dropdown takes full width
