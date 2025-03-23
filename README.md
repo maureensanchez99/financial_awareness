@@ -1,6 +1,8 @@
 # financial_awareness
 
-A new Flutter project.
+This project is our submission for the WiCS Geaux Hack 2025 hackathon.  
+  
+This is the [link](https://devpost.com/software/geauxbreauk) to our Devpost submission.  
 
 ## Getting Started
 

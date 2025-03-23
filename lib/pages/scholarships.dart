@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'new_entry.dart';
 
 class Scholarships extends StatelessWidget {
   Scholarships({super.key});
@@ -24,72 +25,9 @@ class Scholarships extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Text(
-                      'Enter new scholarship info:',
-                      style: TextStyle(
-                        fontFamily: 'ProximaNova',
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextFormField( // first text field
-                      decoration: const InputDecoration(
-                        hintText: 'Scholarship Organization',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter organization scholarship is from';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextFormField( // second text field
-                      decoration: const InputDecoration(
-                        hintText: 'Scholarship Amount',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter the scholarship value';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextFormField( // third text field
-                      decoration: const InputDecoration(
-                        hintText: 'Scholarship Organization Link',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter organization site link scholarship is from';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
-                    ElevatedButton( // submit button
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Process data
-                        }
-                      },
-                      child: const Text('Submit'),
-                    ),
-                  ],
-                ),
-              ),
+            ElevatedButton(
+              onPressed: () {}, 
+              child: const Text('Enter new scholarship'),
             ),
           ],
         ),
