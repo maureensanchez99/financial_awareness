@@ -33,9 +33,10 @@ class _CalendarState extends State<Calendar> {
     Months(name: "December", days: 31),
     ];
 
-    final today = DateTime.now();
+    DateTime today = DateTime.now();
     int monthIndex = DateTime.now().month - 1;
     int year = DateTime.now().year;
+
 
 
   void changeMonthLeft()
@@ -101,6 +102,13 @@ class _CalendarState extends State<Calendar> {
 
   }
 
+  void getDate(int i)
+  {
+    setState(() {
+      today = DateTime(year,monthIndex + 1, i);
+    });
+    
+  }
 
 
   @override
@@ -112,7 +120,7 @@ class _CalendarState extends State<Calendar> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
               ElevatedButton(
                 onPressed: changeMonthLeft,
@@ -162,7 +170,12 @@ class _CalendarState extends State<Calendar> {
                   }
                   else
                   {
-                  return Container(
+                    return GestureDetector(
+                      onTap: () {
+                        getDate(index - getMonthStartDay() + 1);
+                      }
+                    ,
+                  child: Container(
                     padding: const EdgeInsets.all(8),
                     color: Colors.teal[((index - getMonthStartDay()) % 9) * 100],  // Varying color for each box
                     child: Center(
@@ -173,16 +186,16 @@ class _CalendarState extends State<Calendar> {
                             '${index - getMonthStartDay()+ 1}',  // Day numbers (1 to 28)
                              style: const TextStyle(color: Colors.white), 
                           ),
-                         // grabNotes()
                         ],
                       )
                     ),
+                  )
                   );
                   }
                 }),
               ),
             ),
-            Text("reminder"),
+            Text("Date: ${today.weekday + 1}"),
           ], //children
         ),
       ),
