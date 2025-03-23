@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 /* NOTE - FAFSA Page 
   - Criteria: 
@@ -12,6 +12,15 @@ import 'package:flutter/material.dart';
 class ButtonSection extends StatelessWidget {
   const ButtonSection({super.key});
 
+    void _launchURL(String url) async {
+      final Uri uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      } else {
+        print('Could not launch $url');
+      }
+    }
+
   @override
   Widget build(BuildContext context) {
     final Color color = Color(0xFF3C1053);
@@ -21,8 +30,7 @@ class ButtonSection extends StatelessWidget {
         children: [
           ButtonWithText(color: color, icon: Icons.computer, label: 'FAFSA Form', 
             onPressed: () {
-              // This function will run when the Home button is pressed
-              //print('Home button pressed');
+              _launchURL('https://www.facebook.com');
             },
           ),
           ButtonWithText(color: color, icon: Icons.crisis_alert, label: 'Deadlines', 
