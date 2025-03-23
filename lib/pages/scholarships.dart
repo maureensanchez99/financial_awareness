@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'new_entry.dart';
 
 class Scholarships extends StatefulWidget {
@@ -15,6 +16,13 @@ class _ScholarshipsState extends State<Scholarships> {
     setState(() {
       _scholarships.add(newScholarship);
     });
+  }
+
+  Future<void> _launchURLBrowser(String url) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 
   @override
@@ -90,12 +98,13 @@ class _ScholarshipsState extends State<Scholarships> {
                                 ),
                               ),
                               subtitle: Text("\$${scholarship['amount']}"),
-                              trailing: IconButton(
-                                icon: const Icon(Icons.link, color: Colors.blue),
-                                onPressed: () {
-                                  // users should be able to click link if provided
-                                },
-                              ),
+                              trailing: scholarship['link'] != null &&
+                                      scholarship['link'].toString().isNotEmpty
+                                  ? IconButton(
+                                      icon: const Icon(Icons.link, color: Colors.blue),
+                                      onPressed: () => _launchURLBrowser(scholarship['link']),
+                                    )
+                                  : null,
                             ),
                           );
                         },

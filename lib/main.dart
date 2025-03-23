@@ -1,5 +1,6 @@
 import 'package:financial_awareness/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
