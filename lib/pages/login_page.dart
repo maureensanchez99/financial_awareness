@@ -1,130 +1,159 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginState extends StatefulWidget {
+  const LoginState({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginState> createState() => LoginDisplay();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
-  // LSU colors
-  static const Color lsuPurple = Color(0xFF461D7C); // LSU Purple
-  static const Color lsuGold = Color(0xFFFDD023);   // LSU Gold
-  
-  late AnimationController _animationController;
-  bool _isZooming = false;
-  double _zoomScale = 1.0;
-  
+class LoginDisplay extends State<LoginState> {
+
+  String userUser = "";
+  String userPass = "";
+  String storedUser = "";
+  String storedPass = "";
+  String status = "";
+
+  final TextEditingController userVal = TextEditingController();
+  final TextEditingController passVal = TextEditingController();
+
+  bool shown = false;
+
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat(reverse: true);
-  }
-  
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
+    startup();
   }
 
-  // Start zoom animation and navigate to tutorial page
-  void _startZoomAndNavigate(BuildContext context) {
+  Future<void> startup() async {
+    final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _isZooming = true;
+      storedUser = prefs.getString('userID') ?? "magnolia1860";
+      storedPass = prefs.getString('storedPass') ?? "TotallySafePass123";
     });
-    
-    // Animate the zoom effect
-    Future.delayed(const Duration(milliseconds: 100), () {
-      setState(() {
-        _zoomScale = 8.0; // zzzoooooom speeeedd
-      });
-    });
-    
-    // Navigate after zoom animation completes
-    Future.delayed(const Duration(milliseconds: 800), () {
-      Navigator.of(context).push(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-          transitionDuration: const Duration(milliseconds: 300),
-        ),
-      ).then((_) {
-        // Reset the welcome screen when returning
-        setState(() {
-          _isZooming = false;
-          _zoomScale = 1.0;
-        });
-      });
+  }
+
+  void check(String user, String pass) {
+    setState(() {
+      if (user == storedUser && pass == storedPass) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+        status = "User or Password incorrect. Please Try Again";
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, child) {
-          return Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.lerp(lsuGold, lsuPurple, _animationController.value) ?? lsuGold,
-                  Color.lerp(lsuPurple, lsuGold, _animationController.value) ?? lsuPurple,
-                ],
+      body: Flexible(
+        flex: 1,
+        fit: FlexFit.loose,
+        child: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(color: Color(0xFFA39AAC)),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: Center(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 250,
+                      height: 250,
+                      child: Image.asset("assets/images/logo_nobg.png"),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: 250,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF1EEDB),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextField(
+                          controller: userVal,
+                          style: TextStyle(color: Color(0xFF3C1053)),
+                          decoration: InputDecoration(
+                            fillColor: Color(0xFFF1EEDB),
+                            border: OutlineInputBorder(),
+                            hintText: 'Username',
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: 250,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF1EEDB),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextField(
+                          controller: passVal,
+                          obscureText: !shown,
+                          style: TextStyle(color: Color(0xFF3C1053)),
+                          decoration: InputDecoration(
+                            fillColor: Color(0xFFF1EEDB),
+                            border: OutlineInputBorder(),
+                            hintText: "Password",
+                            suffixIcon: IconButton(
+                              icon: Icon(shown
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  shown = !shown; 
+                                });
+                              },
+                            ),
+                          ),
+                          keyboardType: TextInputType.visiblePassword,
+                          textInputAction: TextInputAction.done,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        status,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color.fromARGB(255, 151, 31, 23),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        userUser = userVal.text;
+                        userPass = passVal.text;
+                        check(userUser, userPass);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219, 1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            child: child,
-          );
-        },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (!_isZooming) ...[
-                const Text( 
-                  'Welcome to Geaux Break',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 25),
-                ElevatedButton(
-                  onPressed: () {
-                    _startZoomAndNavigate(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 15,
-                    ),
-                    backgroundColor: lsuGold,
-                    foregroundColor: lsuPurple,
-                  ),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ],
           ),
         ),
       ),

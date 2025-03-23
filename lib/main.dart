@@ -14,10 +14,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Geaux Breauk',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF461D7C)),
+        //colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF461D7C)),
         useMaterial3: true,
+        fontFamily: 'ProximaNova',
       ),
-      home: const LoginPage(),
+      home: const LoginState(),
     );
   }
 }
