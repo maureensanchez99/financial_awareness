@@ -32,7 +32,7 @@ class LoginDisplay extends State<LoginState> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       storedUser = prefs.getString('userID') ?? "magnolia1860";
-      storedPass = prefs.getString('storedPass') ?? "Test";
+      storedPass = prefs.getString('storedPass') ?? "TotallySafePass123";
     });
   }
 
