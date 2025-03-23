@@ -30,13 +30,14 @@ class ButtonSection extends StatelessWidget {
           TextButton(onPressed: () {
               // This function will run when the Home button is pressed
               //print('Home button pressed');
-              _launchURLBrowser("https://studentaid.gov/apply-for-aid/fafsa/fafsa-deadlines");
+              _launchURLBrowser("https://studentaid.gov/h/apply-for-aid/fafsa");
 
             }, child: Icon(Icons.computer),
           ),
           TextButton(onPressed: () {
               // This function will run when the Home button is pressed
               //print('Home button pressed');
+              _launchURLBrowser("https://studentaid.gov/apply-for-aid/fafsa/fafsa-deadlines");
             }, child: Icon(Icons.crisis_alert),
           ),
           TextButton(onPressed: () {
