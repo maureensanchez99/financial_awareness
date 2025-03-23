@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'ProximaNova',
       ),
-      home: const LoginPage(),
+      home: const LoginState(),
     );
   }
 }
