@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:financial_awareness/calendar_logs.dart'; 
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -7,17 +8,14 @@ class Calendar extends StatefulWidget {
   _CalendarState createState() => _CalendarState();
 }
 
- class Months
-  {
-    final String name;
-    final int days;
+class Months {
+  final String name;
+  final int days;
 
-    Months({required this.name, required this.days});
-  }
+  Months({required this.name, required this.days});
+}
+
 class _CalendarState extends State<Calendar> {
-
-
-
   final List<Months> months = [
     Months(name: "January", days: 31),
     Months(name: "February", days: 28),
@@ -31,173 +29,240 @@ class _CalendarState extends State<Calendar> {
     Months(name: "October", days: 31),
     Months(name: "November", days: 30),
     Months(name: "December", days: 31),
-    ];
+  ];
 
-    DateTime today = DateTime.now();
-    int monthIndex = DateTime.now().month - 1;
-    int year = DateTime.now().year;
+  String selectedLogType = 'Profit';
 
+  DateTime today = DateTime.now();
+  int monthIndex = DateTime.now().month - 1;
+  int year = DateTime.now().year;
 
+  DateTime selectedDate = DateTime.now();
+  final TextEditingController logDescriptionController = TextEditingController();
+  final TextEditingController logAmountController = TextEditingController();
+  final TextEditingController logTypeController = TextEditingController();
 
-  void changeMonthLeft()
-  {
-    setState(() {
-      if (monthIndex == 0)
-      {
-        reduceYear();
-        monthIndex = 11;
+  // Method to add a new log
+  void addLogForSelectedDate() {
+    String description = logDescriptionController.text;
+    double amount = double.tryParse(logAmountController.text) ?? 0.0;
+    String type = logTypeController.text;
 
-      }
-      else
-      {
-        monthIndex -= 1;
-      }
-    });
-   
+    if (description.isNotEmpty || type.isNotEmpty) {
+      LogService.addLog(selectedDate, type, description, amount: amount);
+      
+      // After adding the log, we call setState to refresh the UI
+      setState(() {
+        // Updating selectedDate will force the UI to rebuild and show the updated logs
+        selectedDate = DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+      });
+    }
   }
 
-  void changeMonthRight()
-  {
-     setState(() {
-      if (monthIndex == 11)
-      {
-        increaseYear();
-        monthIndex = 0;
-      }
-      else
-      {
-        monthIndex += 1;
-      }
-    });
-  }
-
-  void reduceYear()
-  {
-    setState(() {
-      year -= 1;
-    });
-  }
-
-  void increaseYear()
-  {
-    setState(() {
-      year += 1;
-    });
-  }
-  
-  int getDays()
-  {
+  int getDays() {
     int days = months[monthIndex].days;
-    if (monthIndex == 1 && year%4 == 0)
-    {
+    if (monthIndex == 1 && year % 4 == 0) {
       return days + 1;
     }
     return days;
   }
 
-  int getMonthStartDay()
-  {
+  int getMonthStartDay() {
     DateTime startDay = DateTime(year, monthIndex + 1, 1);
     return startDay.weekday % 7;
-
   }
 
-  void getDate(int i)
-  {
-    setState(() {
-      today = DateTime(year,monthIndex + 1, i);
-    });
-    
+  // Build the logs section
+  Widget buildLogsSection(DateTime date) {
+    List<Log>? logsForDay = LogService.getLogsForDay(date);
+    if (logsForDay == null || logsForDay.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text("No logs available for this day.", style: TextStyle(fontSize: 16, color: Colors.grey)),
+      );
+    } else {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: logsForDay.length,
+        itemBuilder: (context, index) {
+          final log = logsForDay[index];
+          return ListTile(
+            title: Text("${log.type}: ${log.description}"),
+            subtitle: Text("Amount: \$${log.amount}"),
+          );
+        },
+      );
+    }
   }
 
+  void openAddLogBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Add Log for ${selectedDate.month}/${selectedDate.day}/${selectedDate.year}"),
+              DropdownButton<String>(
+                value: selectedLogType, 
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedLogType = newValue!;
+                  });
+                },
+                items: <String>['Profit', 'Loss', 'Fasfa', 'Scholarship'] 
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                hint: Text('Select Log Type'),
+                isExpanded: true,
+              ),
+              TextField(
+                controller: logDescriptionController,
+                decoration: InputDecoration(labelText: "Description"),
+              ),
+              TextField(
+                controller: logAmountController,
+                decoration: InputDecoration(labelText: "Amount (optional)"),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {
+                  addLogForSelectedDate();
+                  Navigator.pop(context); // Close bottom sheet
+                },
+                child: Text("Add Log"),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Calendar')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+      body: Column(
+        children: [
+          // Calendar Header and Navigation
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
               ElevatedButton(
-                onPressed: changeMonthLeft,
-                child: Icon(Icons.arrow_left)
+                onPressed: () {
+                  setState(() {
+                    if (monthIndex == 0) {
+                      year -= 1;
+                      monthIndex = 11;
+                    } else {
+                      monthIndex -= 1;
+                    }
+                  });
+                },
+                child: Icon(Icons.arrow_left),
               ),
               Text("${months[monthIndex].name} $year"),
               ElevatedButton(
-                onPressed: changeMonthRight, 
-                child: Icon(Icons.arrow_right))
-              ],
-            ),
-            // Row with days of the week
-            SizedBox(
-              width: double.infinity,
-              height: 25,
-              child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(10),
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                crossAxisCount: 7,  // 7 columns for the days of the week 
-                children: [
+                onPressed: () {
+                  setState(() {
+                    if (monthIndex == 11) {
+                      year += 1;
+                      monthIndex = 0;
+                    } else {
+                      monthIndex += 1;
+                    }
+                  });
+                },
+                child: Icon(Icons.arrow_right),
+              ),
+            ],
+          ),
+
+          // Display the current date with proper indexing
+          Text("Date: ${months[today.month - 1].name}, ${today.day}, $year"),
+
+          // Days of the Week
+          SizedBox(
+            width: double.infinity,
+            height: 25,
+            child: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(10),
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              crossAxisCount: 7,
+              children: [
                 Text("Sun"),
                 Text("Mon"),
-                Text("Tues"),
+                Text("Tue"),
                 Text("Wed"),
-                Text("Thurs"),
+                Text("Thu"),
                 Text("Fri"),
                 Text("Sat"),
-                ], // Increase height of each box
-                ),
+              ],
             ),
-             
-            // Expanded GridView
-            Expanded(
-              child: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(10),
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                crossAxisCount: 7,  // 7 columns for the days of the week
-                childAspectRatio: 1 / 2,  // Increase height of each box
-                children: List.generate(getMonthStartDay() + getDays(), (index) {  // Generate 28 days (4 rows * 7 columns)
-                  if (index < getMonthStartDay())
-                  {
-                    return Container();
-                  }
-                  else
-                  {
-                    return GestureDetector(
-                      onTap: () {
-                        getDate(index - getMonthStartDay() + 1);
-                      }
-                    ,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[((index - getMonthStartDay()) % 9) * 100],  // Varying color for each box
-                    child: Center(
-                      child:  Column(
-                        children: [
-                          Text
-                          (
-                            '${index - getMonthStartDay()+ 1}',  // Day numbers (1 to 28)
-                             style: const TextStyle(color: Colors.white), 
-                          ),
-                        ],
-                      )
+          ),
+
+          // Days of the Calendar
+          Expanded(
+            child: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(10),
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              crossAxisCount: 7,
+              childAspectRatio: 1 / 2,
+              children: List.generate(getMonthStartDay() + getDays(), (index) {
+                if (index < getMonthStartDay()) {
+                  return Container();
+                } else {
+                  DateTime currentDate = DateTime(year, monthIndex + 1, index - getMonthStartDay() + 1);
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedDate = currentDate; // Update the selected date
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[((index - getMonthStartDay()) % 9) * 100],
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              '${index - getMonthStartDay() + 1}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            if (LogService.getLogsForDay(currentDate)?.isNotEmpty == true)
+                              Icon(Icons.event, color: Colors.white, size: 16), // Indicator for logs
+                          ],
+                        ),
+                      ),
                     ),
-                  )
                   );
-                  }
-                }),
-              ),
+                }
+              }),
             ),
-            Text("Date: ${today.weekday + 1}"),
-          ], //children
-        ),
+          ),
+          Text("${months[monthIndex].name} ${selectedDate.day}, ${selectedDate.year}"),
+
+          // Display the logs for the selected date
+          buildLogsSection(selectedDate),
+        ],
+      ),
+
+      // Floating Action Button to open the bottom sheet
+      floatingActionButton: FloatingActionButton(
+        onPressed: openAddLogBottomSheet,
+        child: Icon(Icons.add),
       ),
     );
   }
