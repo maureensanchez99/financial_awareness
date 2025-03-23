@@ -74,6 +74,8 @@ class HomePageContent extends StatelessWidget {
   Widget build(BuildContext context){
     return Container(
       color: const Color.fromRGBO(163, 154, 172, 1),
+      padding: EdgeInsets.only(top: 50),
+        width: MediaQuery.of(context).size.width,
       child: Center(
         child: Text('Welcome to !Geaux Breauk!'),
       ),
