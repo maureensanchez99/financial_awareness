@@ -41,13 +41,13 @@ class _CalendarState extends State<Calendar> {
   DateTime selectedDate = DateTime.now(); // Track the selected date
   final TextEditingController logDescriptionController = TextEditingController();
   final TextEditingController logAmountController = TextEditingController();
-  final TextEditingController logTypeController = TextEditingController();
+  String logTypeController = '';
 
   // Method to add a new log
-  void addLogForSelectedDate() {
+  void addLogForSelectedDate(String type) {
     String description = logDescriptionController.text;
     double amount = double.tryParse(logAmountController.text) ?? 0.0;
-    String type = logTypeController.text;
+
 
     if (description.isNotEmpty || type.isNotEmpty) {
       LogService.addLog(selectedDate, type, description, amount: amount);
@@ -126,10 +126,9 @@ class _CalendarState extends State<Calendar> {
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text("$value"),
                 );
         }).toList(),
-        hint: Text('Select Log Type'), // Display hint when no selection is made
         isExpanded: true, // Ensures dropdown takes full width
       ),
               TextField(
@@ -144,7 +143,7 @@ class _CalendarState extends State<Calendar> {
               SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () {
-                  addLogForSelectedDate();
+                  addLogForSelectedDate(selectedLogType);
                   Navigator.pop(context); // Close the bottom sheet after adding the log
                 },
                 child: Text("Add Log"),
@@ -231,7 +230,11 @@ Widget build(BuildContext context) {
             childAspectRatio: 1 / 2,
             children: List.generate(getMonthStartDay() + getDays(), (index) {
               if (index < getMonthStartDay()) {
-                return Container();
+                return Container(
+                   decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1), // Add a border for empty cells
+                    ),
+                );
               } else {
                 DateTime currentDate = DateTime(year, monthIndex + 1, index - getMonthStartDay() + 1);
                 return GestureDetector(
@@ -242,7 +245,13 @@ Widget build(BuildContext context) {
                   },
                   child: Container(
                     padding: const EdgeInsets.all(8),
-                    color: Colors.teal[((index - getMonthStartDay()) % 9) * 100],
+                    //color: Colors.teal[((index - getMonthStartDay()) % 9) * 100],
+                    //color: Colors.teal[10],
+                     decoration: BoxDecoration(
+                     color: Colors.teal,
+                     border: Border.all(color: Colors.black, width: 1), // Add a border around each day
+                     borderRadius: BorderRadius.circular(4), // Optional: rounded corners for the boxes
+                    ),
                     child: Center(
                       child: Column(
                         children: [
@@ -263,7 +272,7 @@ Widget build(BuildContext context) {
         ),
 
         // Display the selected date and its logs
-        Text("${months[monthIndex].name} ${selectedDate.day}, ${selectedDate.year}"),
+        Text("${months[selectedDate.month - 1].name} ${selectedDate.day}, ${selectedDate.year}"),
 
         // Display the logs for the selected date
         Expanded(
