@@ -16,9 +16,10 @@ class _HomePageState extends State<HomePage> {
 
   // list of pages that are in the nav bar
   final List<Widget> _pages = [
-    const HomePageContent(),
+    //const HomePageContent(),
     const UserProfile(),
     const FafsaOverview(),
+    const HomePageContent(),
     Scholarships(),
     const Calendar(),
   ];
@@ -36,14 +37,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        backgroundColor: const Color(0xFF3C1053),
-        selectedItemColor: const Color(0xFFA39AAC),
-        unselectedItemColor: Colors.white,
+        backgroundColor: Color(0xFFF1EEDB),
+        selectedItemColor: const Color(0xFFD29F13),
+        unselectedItemColor: const Color(0xFF3C1053),
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
@@ -53,8 +50,16 @@ class _HomePageState extends State<HomePage> {
             label: 'Budget',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'Scholarships',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendar',
           ),
         ],
       ),
