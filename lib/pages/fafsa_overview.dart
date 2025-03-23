@@ -19,9 +19,24 @@ class ButtonSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ButtonWithText(color: color, icon: Icons.computer, label: 'FAFSA Form'),
-          ButtonWithText(color: color, icon: Icons.crisis_alert, label: 'Deadlines'),
-          ButtonWithText(color: color, icon: Icons.share, label: 'Share'),
+          ButtonWithText(color: color, icon: Icons.computer, label: 'FAFSA Form', 
+            onPressed: () {
+              // This function will run when the Home button is pressed
+              //print('Home button pressed');
+            },
+          ),
+          ButtonWithText(color: color, icon: Icons.crisis_alert, label: 'Deadlines', 
+            onPressed: () {
+              // This function will run when the Home button is pressed
+              //print('Home button pressed');
+            },
+          ),
+          ButtonWithText(color: color, icon: Icons.share, label: 'Share', 
+            onPressed: () {
+              // This function will run when the Home button is pressed
+              //print('Home button pressed');
+            },
+          ),
         ],
       ),
     );
@@ -35,32 +50,41 @@ class ButtonWithText extends StatelessWidget {
     required this.color,
     required this.icon,
     required this.label,
+    required this.onPressed,
   });
 
   final Color color;
   final IconData icon;
   final String label;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return TextButton(
       // ···
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(icon, color: color),
-        Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: color,
+      onPressed: () {},
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+        //primary: color,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color),
+          Padding(
+            padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
