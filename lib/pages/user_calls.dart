@@ -310,7 +310,7 @@ class UpdatePassword extends StatefulWidget {
   @override
   State<UpdatePassword> createState() => PassSetup();
 }
-/*Unfinished */
+
 class PassSetup extends State<UpdatePassword> {
 
   String oldPass = "";
