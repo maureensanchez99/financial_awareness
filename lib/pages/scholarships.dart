@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
 import 'new_entry.dart';
 
@@ -10,12 +12,35 @@ class Scholarships extends StatefulWidget {
 }
 
 class _ScholarshipsState extends State<Scholarships> {
-  final List<Map<String, dynamic>> _scholarships = [];
+  List<Map<String, dynamic>> _scholarships = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadScholarships(); // loads saved scholarships on startup
+  }
+
+  Future<void> _loadScholarships() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? savedData = prefs.getString('scholarships');
+    
+    if (savedData != null) {
+      setState(() {
+        _scholarships = List<Map<String, dynamic>>.from(json.decode(savedData));
+      });
+    }
+  }
+
+  Future<void> _saveScholarships() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('scholarships', json.encode(_scholarships));
+  }
 
   void _addScholarship(Map<String, dynamic> newScholarship) {
     setState(() {
       _scholarships.add(newScholarship);
     });
+    _saveScholarships(); // save the data after adding a scholarship
   }
 
   Future<void> _launchURLBrowser(String url) async {
