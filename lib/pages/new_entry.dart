@@ -16,7 +16,7 @@ class _NewEntryState extends State<NewEntry> {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(163, 154, 172, 1),
       ),
-      body: Container(  
+      body: Container(
         color: const Color.fromRGBO(163, 154, 172, 1),
         child: Center(
           child: Padding(
@@ -24,10 +24,10 @@ class _NewEntryState extends State<NewEntry> {
             child: Form(
               key: _formKey,
               child: Column(
-                mainAxisSize: MainAxisSize.min,  
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    'Enter new scholarship info:',
+                    'Enter the details about your new scholarship:',
                     style: TextStyle(
                       fontFamily: 'ProximaNova',
                       fontSize: 30,
@@ -36,53 +36,20 @@ class _NewEntryState extends State<NewEntry> {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  TextFormField( // First text field
-                    decoration: const InputDecoration(
-                      hintText: 'Scholarship Organization',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Enter organization scholarship is from';
-                      }
-                      return null;
-                    },
-                  ),
+                  _buildStyledTextFormField('Scholarship Organization'),
                   const SizedBox(height: 16.0),
-                  TextFormField( // Second text field
-                    decoration: const InputDecoration(
-                      hintText: 'Scholarship Amount',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Enter the scholarship value';
-                      }
-                      return null;
-                    },
-                  ),
+                  _buildStyledTextFormField('Scholarship Amount'),
                   const SizedBox(height: 16.0),
-                  TextFormField( // Third text field
-                    decoration: const InputDecoration(
-                      hintText: 'Scholarship Organization Link',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Enter organization site link scholarship is from';
-                      }
-                      return null;
-                    },
-                  ),
+                  _buildStyledTextFormField('Scholarship Organization Link'),
                   const SizedBox(height: 16.0),
-                  ElevatedButton( // Submit button
+                  ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Process data
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                      backgroundColor: const Color.fromRGBO(241, 238, 219, 1),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 8,
@@ -103,6 +70,35 @@ class _NewEntryState extends State<NewEntry> {
           ),
         ),
       ),
+    );
+  }
+
+  // styles for the text form field
+  Widget _buildStyledTextFormField(String hintText) {
+    return TextFormField(
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          color: Color.fromRGBO(60, 16, 83, 1),  
+          fontStyle: FontStyle.italic,
+        ),
+        filled: true,
+        fillColor: const Color.fromRGBO(241, 238, 219, 1),  
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 12,
+        ),
+      ),
+      validator: (String? value) {
+        if (value == null || value.isEmpty) {
+          return 'This field cannot be empty';
+        }
+        return null;
+      },
     );
   }
 }
