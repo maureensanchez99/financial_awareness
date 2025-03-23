@@ -98,10 +98,11 @@ class ProfilePage extends State<UserProfile> {
                         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget> [
                           Text(userName, style: TextStyle( fontSize: 25.0,
-                                                           color: Colors.black
+                                                           color: Colors.black,
+                                                           fontWeight: FontWeight.bold,
                                                          ),
                           ),
-                          Text(userID, style: TextStyle( fontSize: 18.0,
+                          Text(('@' + userID), style: TextStyle( fontSize: 18.0,
                                                            color: const Color.fromARGB(255, 216, 216, 216)
                                                          ),
                           )
