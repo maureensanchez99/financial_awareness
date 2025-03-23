@@ -9,6 +9,9 @@ class NewEntry extends StatefulWidget {
 
 class _NewEntryState extends State<NewEntry> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _organizationController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _linkController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class _NewEntryState extends State<NewEntry> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    'Enter the details about your new scholarship:',
+                    'Enter new scholarship info:',
                     style: TextStyle(
                       fontFamily: 'ProximaNova',
                       fontSize: 30,
@@ -36,16 +39,21 @@ class _NewEntryState extends State<NewEntry> {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  _buildStyledTextFormField('Scholarship Organization'),
+                  _buildStyledTextFormField('Scholarship Organization', _organizationController),
                   const SizedBox(height: 16.0),
-                  _buildStyledTextFormField('Scholarship Amount'),
+                  _buildStyledTextFormField('Scholarship Amount', _amountController),
                   const SizedBox(height: 16.0),
-                  _buildStyledTextFormField('Scholarship Organization Link'),
+                  _buildStyledTextFormField('Scholarship Organization Link', _linkController),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Process data
+                        final newScholarship = {
+                          'organization': _organizationController.text,
+                          'amount': _amountController.text,
+                          'link': _linkController.text,
+                        };
+                        Navigator.pop(context, newScholarship);
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -73,17 +81,17 @@ class _NewEntryState extends State<NewEntry> {
     );
   }
 
-  // styles for the text form field
-  Widget _buildStyledTextFormField(String hintText) {
+  Widget _buildStyledTextFormField(String hintText, TextEditingController controller) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(
-          color: Color.fromRGBO(60, 16, 83, 1),  
-          fontStyle: FontStyle.italic,
+          color: Color.fromRGBO(60, 16, 83, 1),
+          fontWeight: FontWeight.bold,
         ),
         filled: true,
-        fillColor: const Color.fromRGBO(241, 238, 219, 1),  
+        fillColor: const Color.fromRGBO(241, 238, 219, 1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide.none,
