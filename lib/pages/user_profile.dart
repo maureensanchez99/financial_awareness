@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'home_page.dart';
+import 'user_calls.dart';
+import 'login_page.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -31,17 +33,26 @@ class ProfilePage extends State<UserProfile> {
     });
   }
 
-  Future<void> updateProfile() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setString('userName', "Test");
-      prefs.setString('userID', "Test");
-      prefs.setString('bio', "Test");
+  void updateProfile() async {
+    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UpdateProfile())
+                      );
+    loadProfile();
+  }
 
-      userName = prefs.getString('userName') ?? "Mike Tiger";
-      userID = prefs.getString('userID') ?? "magnolia1860";
-      bio = prefs.getString('bio') ?? "My name is mike hear me roar\n\n\n\n\n\nroar";
-    });
+  void updateUsername() async {
+    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UpdateUsername())
+                      );
+    loadProfile();
+  }
+  void updatePassword() async {
+    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UpdatePassword())
+                      );
   }
 
     Future<void> reset() async {
@@ -147,7 +158,7 @@ class ProfilePage extends State<UserProfile> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        
+                        updateUsername();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(241, 238, 219,1),
@@ -167,7 +178,7 @@ class ProfilePage extends State<UserProfile> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        
+                        updatePassword();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(241, 238, 219,1),
@@ -229,7 +240,10 @@ class ProfilePage extends State<UserProfile> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        reset();
+                         Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginState()),
+                      );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(241, 238, 219,1),
