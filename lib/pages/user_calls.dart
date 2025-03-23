@@ -488,3 +488,259 @@ class PassSetup extends State<UpdatePassword> {
     );
   }
 }
+
+class ToCCall extends StatefulWidget {
+  const ToCCall({super.key});
+
+  @override
+  State<ToCCall> createState() => ToCPage();
+}
+
+class ToCPage extends State<ToCCall> {
+
+  String tocSHow = """Terms and Conditions for !GeauxBroke
+Effective Date: Rn IG Last Updated: Ummm whenever I made this
+
+Welcome to !GeauxBroke! These Terms and Conditions ("Terms") govern your use of the !GeauxBroke mobile application ("App") and its associated services ("Services"). By accessing or using the App, you agree to be bound by these Terms. If you do not agree, please refrain from using our App.
+
+1. Acceptance of Terms
+By downloading, installing, or using !GeauxBroke, you acknowledge that you have read, understood, and agree to these Terms, as well as our Privacy Policy. If you do not agree with these Terms, you are prohibited from using the App.
+
+2. Eligibility
+You must be at least 18 years old (or the legal age of majority in your jurisdiction) to use !GeauxBroke. By using the App, you confirm that you meet this requirement.
+
+3. User Accounts
+You may need to create a user account to access certain features.
+
+You are responsible for maintaining the confidentiality of your account credentials and agree not to share them with others.
+
+You agree to notify us immediately if you suspect unauthorized use of your account.
+
+4. Use of Services
+You may only use the App for lawful purposes.
+
+You agree not to misuse the App, including but not limited to engaging in fraudulent activities, violating intellectual property rights, or attempting to harm other users.
+
+5. Intellectual Property
+All content, design, trademarks, logos, and intellectual property within the App are the property of !GeauxBroke or its licensors. You are granted a limited, non-exclusive license to access and use the App for personal, non-commercial purposes. Copying, modifying, or distributing any content without prior authorization is prohibited.
+
+6. Fees and Transactions
+Some features of the App may require payment. All fees are displayed upfront and are non-refundable unless stated otherwise.
+
+!GeauxBroke is not liable for any third-party transaction failures or unauthorized charges.
+
+7. Limitation of Liability
+To the maximum extent permitted by law, !GeauxBroke is not liable for any indirect, incidental, or consequential damages arising from your use of the App or its Services. Your use of the App is at your own risk.
+
+8. Termination
+We reserve the right to suspend or terminate your access to the App at any time for any reason, including but not limited to a violation of these Terms.
+
+9. Updates and Modifications
+We may update these Terms from time to time. You will be notified of any significant changes, and continued use of the App signifies your acceptance of the updated Terms.
+
+10. Governing Law
+These Terms are governed by the laws of Wherever the hell this is. Any disputes arising from these Terms will be resolved in the courts of [Insert Location].
+
+11. Contact Information
+For any questions about these Terms, please contact us at: Email: dont have one Mailing Address: HA! youre trying to find us? Good Luck XP
+
+By using !GeauxBroke, you acknowledge that you have read, understood, and agree to these Terms and Conditions.""";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.only(top: 50),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(color: Color(0xFFA39AAC)),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Container(
+                height: 200,
+                width: 300,
+                decoration: BoxDecoration(
+                      color: Color.fromRGBO(241, 238, 219,1),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0), 
+                ),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Text(
+                      tocSHow,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                      ),
+              ),
+            ),
+                ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Go Back',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+          ],
+
+        ),
+      ),
+    );
+  }
+}
+
+class PrivacyCall extends StatefulWidget {
+  const PrivacyCall({super.key});
+
+  @override
+  State<PrivacyCall> createState() => PrivacyPage();
+}
+
+class PrivacyPage extends State<PrivacyCall> {
+
+  String privacyShow = """Privacy Policy for !GeauxBroke
+Effective Date: Ummmmmmmmm- Last Updated: [Redacted]
+
+At !GeauxBroke, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, share, and safeguard your data when you use our app and services.
+
+1. Information We Collect
+We may collect the following types of information:
+
+Personal Information: Name, email address, phone number, and other information you provide during account registration.
+
+Usage Data: Details about how you interact with the app, including features used, device information, and IP address.
+
+Payment Information: Payment details for transactions within the app, processed securely by third-party payment processors.
+
+Cookies and Tracking Technologies: Data collected automatically through cookies, analytics tools, and similar technologies.
+
+2. How We Use Your Information
+We use the information we collect to:
+
+Provide and improve our services.
+
+Process transactions and send confirmations.
+
+Communicate with you about app updates, features, and promotions.
+
+Analyze usage patterns to enhance your experience.
+
+Comply with legal obligations.
+
+3. How We Share Your Information
+We do not sell your personal information. However, we may share it in the following circumstances:
+
+With Service Providers: Third parties who assist us with app functions, such as hosting, analytics, or payment processing.
+
+For Legal Requirements: If required by law, regulation, or legal process.
+
+During Business Transfers: In case of mergers, acquisitions, or asset sales.
+
+4. Your Choices and Rights
+You have the right to:
+
+Access: Request a copy of your personal information.
+
+Correction: Update or correct inaccurate data.
+
+Deletion: Request the deletion of your personal information (subject to certain exceptions).
+
+Opt-Out: Manage your preferences for marketing communications.
+
+Cookies: Adjust your browser settings to refuse cookies, though some app features may not function properly.
+
+5. Data Security
+We take reasonable measures to safeguard your data against unauthorized access, disclosure, alteration, and destruction. However, no method of transmission or storage is completely secure, and we cannot guarantee absolute security.
+
+6. Third-Party Links and Services
+Our app may contain links to third-party websites or services. We are not responsible for the privacy practices of these third parties. Please review their policies before providing any personal information.
+
+7. Children’s Privacy
+!GeauxBroke is not intended for users under the age of 18. We do not knowingly collect personal information from minors. If we discover that we have collected data from a minor, we will delete it promptly.
+
+8. Changes to This Privacy Policy
+We may update this Privacy Policy periodically. You will be notified of significant changes, and continued use of the app signifies your acceptance of the updated policy.
+
+9. Contact Us
+If you have any questions or concerns about this Privacy Policy or our data practices, please contact us: Email: We dont wanna talk to you Mailing Address: Dont even try it""";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.only(top: 50),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(color: Color(0xFFA39AAC)),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Container(
+                height: 200,
+                width: 300,
+                decoration: BoxDecoration(
+                      color: Color.fromRGBO(241, 238, 219,1),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0), 
+                ),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Text(
+                      privacyShow,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                      ),
+              ),
+            ),
+                ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 8,
+                        ),
+                      ),
+                      child: Text(
+                        'Go Back',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(60, 16, 83, 1),
+                        ),
+                      ),
+                    ),
+          ],
+
+        ),
+      ),
+    );
+  }
+}
