@@ -42,25 +42,38 @@ class Scholarships extends StatelessWidget {
                     const SizedBox(height: 16.0),
                     TextFormField( // first text field
                       decoration: const InputDecoration(
-                        hintText: 'Scholarship Name',
+                        hintText: 'Scholarship Organization',
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Enter organization scholarship is from';
                         }
                         return null;
                       },
                     ),
                     const SizedBox(height: 16.0),
-                    TextFormField( // first text field
+                    TextFormField( // second text field
                       decoration: const InputDecoration(
                         hintText: 'Scholarship Amount',
                         border: OutlineInputBorder(),
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter the scholarship value';
+                          return 'Enter the scholarship value';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField( // third text field
+                      decoration: const InputDecoration(
+                        hintText: 'Scholarship Organization Link',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter organization site link scholarship is from';
                         }
                         return null;
                       },
