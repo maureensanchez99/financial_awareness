@@ -56,6 +56,10 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.book),
             label: 'Scholarships',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendar',
+          ),
         ],
       ),
     );
