@@ -36,7 +36,21 @@ class Scholarships extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => NewEntry()),
                     );
                 }, 
-                child: const Text('Enter new scholarship'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 8,
+                  ),
+                ),
+                child: const Text(
+                  'Enter new scholarship',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(60, 16, 83, 1),
+                  ),
+                ),
               ),
             ],
           ),

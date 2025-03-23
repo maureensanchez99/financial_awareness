@@ -81,7 +81,21 @@ class _NewEntryState extends State<NewEntry> {
                         // Process data
                       }
                     },
-                    child: const Text('Submit'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(241, 238, 219,1),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 8,
+                      ),
+                    ),
+                    child: const Text(
+                      'Submit',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(60, 16, 83, 1),
+                      ),
+                    ),
                   ),
                 ],
               ),
