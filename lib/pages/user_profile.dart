@@ -201,7 +201,10 @@ class ProfilePage extends State<UserProfile> {
                   Column(children: [
                     ElevatedButton(
                       onPressed: () {
-                        
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PrivacyCall()),
+                      );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(241, 238, 219,1),
@@ -221,7 +224,10 @@ class ProfilePage extends State<UserProfile> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ToCCall()),
+                      );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(241, 238, 219,1),

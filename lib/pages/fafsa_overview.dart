@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 /* NOTE - FAFSA Page 
   - Criteria: 
@@ -12,76 +12,69 @@ import 'package:flutter/material.dart';
 class ButtonSection extends StatelessWidget {
   const ButtonSection({super.key});
 
+  Future<void> _launchURLBrowser(String url) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    final Color color = Color(0xFF3C1053);
+    //final Color color = Color(0xFF3C1053);
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ButtonWithText(color: color, icon: Icons.computer, label: 'FAFSA Form', 
-            onPressed: () {
+          TextButton(onPressed: () {
               // This function will run when the Home button is pressed
               //print('Home button pressed');
-            },
+              _launchURLBrowser("https://studentaid.gov/h/apply-for-aid/fafsa");
+
+            }, child: Icon(Icons.computer),
           ),
-          ButtonWithText(color: color, icon: Icons.crisis_alert, label: 'Deadlines', 
-            onPressed: () {
+          TextButton(onPressed: () {
               // This function will run when the Home button is pressed
               //print('Home button pressed');
-            },
+              _launchURLBrowser("https://studentaid.gov/apply-for-aid/fafsa/fafsa-deadlines");
+            }, child: Icon(Icons.crisis_alert),
           ),
-          ButtonWithText(color: color, icon: Icons.share, label: 'Share', 
-            onPressed: () {
+          TextButton(onPressed: () {
               // This function will run when the Home button is pressed
               //print('Home button pressed');
+
+              showDialog(context: context, builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Share Page:"),
+                content: Center(
+                  child: Row(
+                    children: [
+                      IconButton(iconSize: 72, onPressed: () {
+                        _launchURLBrowser("https://www.instagram.com/");
+                      }, icon: Icon(Icons.camera_alt_outlined),),
+                      IconButton(iconSize: 72, onPressed: () {
+                        _launchURLBrowser("https://www.facebook.com/");
+                      }, icon: Icon(Icons.facebook),),
+                      IconButton(iconSize: 72, onPressed: () {
+                        _launchURLBrowser("https://www.tiktok.com/explore");
+                      }, icon: Icon(Icons.tiktok)),
+                      ],
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    child: Text("Done"),
+                  ),
+                ],
+              );
+              });
+
             },
-          ),
-        ],
-      ),
-    );
-  }
-
-}
-
-class ButtonWithText extends StatelessWidget {
-  const ButtonWithText({
-    super.key,
-    required this.color,
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-  });
-
-  final Color color;
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      // ···
-      onPressed: () {},
-      style: TextButton.styleFrom(
-        padding: EdgeInsets.zero,
-        //primary: color,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color),
-          Padding(
-            padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: color,
-              ),
-            ),
+            child: Icon(Icons.share),
           ),
         ],
       ),
@@ -130,29 +123,38 @@ class FafsaOverview extends StatelessWidget {
           color: Color(0xFFA39AAC),
         ),
 
-      child: const SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Column(
           children: [
-              ImageSection(
+              const ImageSection(
                 image: 'assets/images/FAFSA_ss.png',
               ),
-             TitleSection(
+             const TitleSection(
               pageTitle: 'FAFSA Overview',
               desc: '2025–26 FAFSA® Form Now Available!',
             ),
-            ButtonSection(),
-            TextSection(
+            const ButtonSection(),
+            const TextSection(
               description:
-                  'Who We Are \n'
+                  'What is FAFSA? \n'
                   'FSA, an office of the U.S. Department of Education (ED), is '
                   'the largest provider of student financial aid in the nation. '
-                  'At FSA, our more than 1,400 employees help make postsecondary education '
+                  'At FSA, more than 1,400 employees help make postsecondary education '
                   'possible for more than 9.9 million students each year. \n'
-                  'What We Do \n'
+                  '\n'
+                  'What Does it Do?\n'
                   'FSA is responsible for managing the student financial assistance '
                   'programs authorized under Title IV of the Higher Education Act of '
                   '1965. These programs provide grant, work-study, and loan funds to students '
-                  'attending college or career school.'
+                  'attending college or career school. \n'
+                  '\n'
+                  'Why !GeauxBreauk! Cares. \n'
+                  'Our team integrated FAFSA into our app to simplify the financial aid process and make '
+                  'higher education more accessible. By offering step-by-step guidance, real-time updates, '
+                  'and personalized tips, our goal is to help students easily complete their FAFSA applications, '
+                  'stay on track with deadlines, and maximize their aid eligibility. This integration streamlines '
+                  'the process, reduces confusion, and empowers students and families to navigate financial aid '
+                  'with confidence, ensuring they receive the resources needed to succeed.'
                   ,
             ),
           ],
@@ -190,12 +192,12 @@ class TitleSection extends StatelessWidget {
                   ),
                 ),
                 //NOTE - Change color
-                Text(desc, style: TextStyle(color: Colors.blueGrey[500])),
+                Text(desc, style: TextStyle(color: Color(0xFF3C1053))),
               ],
             ),
           ),
           /*3*/
-          Icon(Icons.library_books, color: Color(0xFF3C1053)),
+          //Icon(Icons.library_books, color: Color(0xFF3C1053)),
         ],
       ),
     );

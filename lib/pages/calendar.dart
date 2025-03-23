@@ -212,46 +212,56 @@ class _CalendarState extends State<Calendar> {
           ),
 
           // Days of the Calendar
-          Expanded(
-            child: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(10),
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              crossAxisCount: 7,
-              childAspectRatio: 1 / 2,
-              children: List.generate(getMonthStartDay() + getDays(), (index) {
-                if (index < getMonthStartDay()) {
-                  return Container();
-                } else {
-                  DateTime currentDate = DateTime(year, monthIndex + 1, index - getMonthStartDay() + 1);
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedDate = currentDate; // Update the selected date
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[((index - getMonthStartDay()) % 9) * 100],
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Text(
-                              '${index - getMonthStartDay() + 1}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            if (LogService.getLogsForDay(currentDate)?.isNotEmpty == true)
-                              Icon(Icons.event, color: Colors.white, size: 16), // Indicator for logs
-                          ],
-                        ),
+           Expanded(
+          child: GridView.count(
+            primary: false,
+            padding: const EdgeInsets.all(10),
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            crossAxisCount: 7,
+            childAspectRatio: 1 / 2,
+            children: List.generate(getMonthStartDay() + getDays(), (index) {
+              if (index < getMonthStartDay()) {
+                return Container(
+                   decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1), // Add a border for empty cells
+                    ),
+                );
+              } else {
+                DateTime currentDate = DateTime(year, monthIndex + 1, index - getMonthStartDay() + 1);
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedDate = currentDate; // Update the selected date
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    //color: Colors.teal[((index - getMonthStartDay()) % 9) * 100],
+                    //color: Colors.teal[10],
+                     decoration: BoxDecoration(
+                     color: Color(0xFF498467),
+                     border: Border.all(color: Colors.black, width: 1), // Add a border around each day
+                     borderRadius: BorderRadius.circular(4), // Optional: rounded corners for the boxes
+                    ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            '${index - getMonthStartDay() + 1}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          if (LogService.getLogsForDay(currentDate)?.isNotEmpty == true)
+                            Icon(Icons.event, color: Colors.white, size: 16), // Indicator for logs
+                        ],
                       ),
                     ),
-                  );
-                }
-              }),
-            ),
+                  ),
+                );
+              }
+            }),
           ),
+        ),
           Text("${months[monthIndex].name} ${selectedDate.day}, ${selectedDate.year}"),
 
           // Display the logs for the selected date

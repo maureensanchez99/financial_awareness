@@ -72,10 +72,10 @@ class HomePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {}, 
-        child: const Text('Home Page content'),
+    return Container(
+      color: const Color.fromRGBO(163, 154, 172, 1),
+      child: Center(
+        child: Text('Welcome to !Geaux Breauk!'),
       ),
     );
   }
