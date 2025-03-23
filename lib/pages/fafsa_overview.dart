@@ -136,16 +136,25 @@ class FafsaOverview extends StatelessWidget {
             const ButtonSection(),
             const TextSection(
               description:
-                  'Who We Are \n'
+                  'What is FAFSA? \n'
                   'FSA, an office of the U.S. Department of Education (ED), is '
                   'the largest provider of student financial aid in the nation. '
-                  'At FSA, our more than 1,400 employees help make postsecondary education '
+                  'At FSA, more than 1,400 employees help make postsecondary education '
                   'possible for more than 9.9 million students each year. \n'
-                  'What We Do \n'
+                  '\n'
+                  'What Does it Do?\n'
                   'FSA is responsible for managing the student financial assistance '
                   'programs authorized under Title IV of the Higher Education Act of '
                   '1965. These programs provide grant, work-study, and loan funds to students '
-                  'attending college or career school.'
+                  'attending college or career school. \n'
+                  '\n'
+                  'Why !GeauxBreauk! Cares. \n'
+                  'Our team integrated FAFSA into our app to simplify the financial aid process and make '
+                  'higher education more accessible. By offering step-by-step guidance, real-time updates, '
+                  'and personalized tips, our goal is to help students easily complete their FAFSA applications, '
+                  'stay on track with deadlines, and maximize their aid eligibility. This integration streamlines '
+                  'the process, reduces confusion, and empowers students and families to navigate financial aid '
+                  'with confidence, ensuring they receive the resources needed to succeed.'
                   ,
             ),
           ],
@@ -183,12 +192,12 @@ class TitleSection extends StatelessWidget {
                   ),
                 ),
                 //NOTE - Change color
-                Text(desc, style: TextStyle(color: Colors.blueGrey[500])),
+                Text(desc, style: TextStyle(color: Color(0xFF3C1053))),
               ],
             ),
           ),
           /*3*/
-          Icon(Icons.library_books, color: Color(0xFF3C1053)),
+          //Icon(Icons.library_books, color: Color(0xFF3C1053)),
         ],
       ),
     );
